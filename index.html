@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>五月天 5525+2 北京站 — 12일 세트리스트</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&amp;family=Noto+Sans+KR:wght@300;400;500;700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #fafaf8;
+    --bg2: #f4f4f0;
+    --bg3: #eeede8;
+    --border: #e0dfd8;
+    --border2: #d0cfc8;
+    --text: #1a1a1a;
+    --text2: #555550;
+    --text3: #a0a09a;
+    --accent: #8a6a2a;
+    --accent2: #b08a48;
+    --blue: #1a6ea8;
+    --blue-bg: rgba(26,110,168,0.09);
+    --green: #2a8a50;
+    --green-bg: rgba(42,138,80,0.09);
+    --orange: #b05a1a;
+    --orange-bg: rgba(176,90,26,0.09);
+    --red: #a03030;
+    --red-bg: rgba(160,48,48,0.09);
+    --diff-bg: rgba(138,106,42,0.06);
+    --guest-bg: rgba(0,0,0,0.04);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .page-header {
+    padding: 44px 32px 28px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(138,106,42,0.04) 0%, transparent 100%);
+  }
+  .page-header-inner { max-width: 1800px; margin: 0 auto; }
+
+  .tour-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .page-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  .page-subtitle {
+    font-size: 14px;
+    color: var(--text2);
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .page-subtitle span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); display: inline-block; }
+
+  /* Stats bar — one line */
+  .stats-bar {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    overflow-x: auto;
+  }
+  .stat-item {
+    padding: 10px 20px;
+    border-right: 1px solid var(--border);
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+  .stat-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+  }
+  .stat-unit {
+    font-size: 12px;
+    color: var(--text2);
+    margin-left: 2px;
+    font-weight: 400;
+  }
+
+  /* Filter bar — sticky */
+  .filter-bar {
+    padding: 10px 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .filter-bar-inner {
+    max-width: 1800px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-label {
+    font-size: 12px;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+  .filter-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 5px;
+    border: 1px solid var(--border2);
+    background: white;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+  .filter-btn.all-btn {
+    background: var(--bg3);
+    border-color: var(--border2);
+    color: var(--text2);
+    font-size: 12px;
+  }
+  .filter-btn.all-btn:hover {
+    background: var(--text);
+    border-color: var(--text);
+    color: white;
+  }
+  .filter-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--border2);
+    margin: 0 4px;
+  }
+
+  /* Tab navigation */
+  .tab-nav {
+    display: flex;
+    border-bottom: 2px solid var(--border);
+    background: var(--bg2);
+    padding: 0 32px;
+  }
+  .tab-btn {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 13px 20px;
+    border: none;
+    background: transparent;
+    color: var(--text3);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text2); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 700; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* Frequent songs tab */
+  .freq-outer { padding: 28px 32px 48px; max-width: 860px; margin: 0 auto; }
+  .freq-intro {
+    font-size: 13px; color: var(--text2); margin-bottom: 28px;
+    padding: 14px 18px; background: var(--bg2);
+    border: 1px solid var(--border); border-radius: 6px; line-height: 1.7;
+  }
+  .freq-section-title {
+    font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700;
+    color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 10px 0 8px; border-bottom: 1px solid var(--border2);
+    margin-bottom: 4px; margin-top: 32px;
+  }
+  .freq-section-title:first-of-type { margin-top: 0; }
+  .freq-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 11px 6px; border-bottom: 1px solid var(--border); transition: background 0.1s;
+  }
+  .freq-row:last-child { border-bottom: none; }
+  .freq-row:hover { background: var(--bg2); border-radius: 4px; }
+  .freq-num { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); width: 28px; text-align: right; flex-shrink: 0; }
+  .freq-song { font-size: 14px; color: var(--text); flex: 1; font-weight: 500; }
+  .freq-days { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; white-space: nowrap; }
+  .freq-badge {
+    display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600;
+    background: rgba(138,106,42,0.10); color: var(--accent); border: 1px solid rgba(138,106,42,0.20);
+    white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* Legend — sticky below filter bar */
+  .legend-bar {
+    padding: 9px 32px;
+    border-bottom: 1px solid var(--border);
+    background: white;
+    position: sticky;
+    top: 45px;
+    z-index: 49;
+  }
+  .legend-bar-inner {
+    max-width: 1800px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .legend-label {
+    font-size: 11px;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+    margin-right: 2px;
+  }
+
+  /* Table wrapper */
+  .table-outer {
+    padding: 24px 32px 48px;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+  .scroll-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  table {
+    border-collapse: collapse;
+    font-size: 13px;
+    width: 100%;
+    min-width: 300px;
+  }
+
+  /* Header row — not sticky (inside overflow container, can't sticky to page) */
+  thead tr {
+    background: var(--bg3);
+  }
+  th {
+    padding: 11px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text2);
+    border-bottom: 1px solid var(--border2);
+    border-right: 1px solid var(--border);
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+  th:last-child { border-right: none; }
+  th.left { text-align: left; padding-left: 16px; }
+
+  td.num {
+    color: var(--text3);
+    font-size: 12px;
+    width: 40px;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+  }
+  td.song {
+    min-width: 190px;
+    font-size: 13px;
+    color: var(--text2);
+    padding-left: 16px;
+  }
+
+  .day-title {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 2px;
+  }
+  .day-date {
+    display: block;
+    font-size: 11px;
+    color: var(--text2);
+    margin-bottom: 1px;
+  }
+  .day-time {
+    display: block;
+    font-size: 10px;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* Body rows */
+  td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  td:last-child { border-right: none; }
+  tr:last-child td { border-bottom: none; }
+
+  td.day {
+    text-align: center;
+    min-width: 68px;
+    max-width: 130px;
+    font-size: 12px;
+  }
+
+  td.num {
+    color: var(--text3);
+    font-size: 12px;
+    width: 32px;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+    line-height: 1.5;
+    white-space: normal;
+    word-break: keep-all;
+    text-align: center;
+  }
+
+  .section-row td {
+    background: var(--bg3);
+    font-size: 11px;
+    color: var(--accent);
+    padding: 5px 16px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    border-bottom: 1px solid var(--border2);
+  }
+  .break-row td {
+    background: transparent;
+    font-size: 12px;
+    color: var(--text3);
+    padding: 4px 16px;
+    font-style: italic;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .diff { background: var(--diff-bg); }
+
+  .none { color: var(--text3); font-size: 12px; }
+  .tag-main  { background: var(--blue-bg);   color: var(--blue);   border: 1px solid rgba(26,110,168,0.18); }
+  .tag-req   { background: var(--orange-bg); color: var(--orange); border: 1px solid rgba(176,90,26,0.18); }
+  .tag-enc   { background: var(--green-bg);  color: var(--green);  border: 1px solid rgba(42,138,80,0.18); }
+  .tag-special { background: var(--red-bg);  color: var(--red);    border: 1px solid rgba(160,48,48,0.18); }
+  .tag-guest { background: var(--guest-bg);  color: var(--text2);  border: 1px solid var(--border2); }
+  .tag-artist{ background: rgba(138,106,42,0.10); color: var(--accent); border: 1px solid rgba(138,106,42,0.22); }
+
+  tbody tr:not(.section-row):not(.break-row):hover td { background: rgba(0,0,0,0.02); }
+  tbody tr.diff:not(.section-row):not(.break-row):hover td { background: rgba(138,106,42,0.09); }
+
+  /* Hidden column */
+  .col-hidden { display: none; }
+
+  /* No-data row */
+  .no-data-row { display: none; }
+  .no-data-row td {
+    text-align: center;
+    padding: 40px;
+    color: var(--text3);
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  /* Initially hide all tbody rows except no-data-row */
+  tbody tr:not(.no-data-row) { display: none; }
+
+  /* Footer */
+  .page-footer {
+    padding: 20px 32px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+    text-align: center;
+    background: var(--bg2);
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+</style>
+</head>
+<body>
+<div class="page-header">
+<div class="page-header-inner">
+<div class="tour-label">SETLIST ARCHIVE · 五月天 5525+2</div>
+<h1 class="page-title">回到那一天 無限延伸版 — 北京站</h1>
+<div class="page-subtitle">
+<span><span class="dot"></span> 2026년 4월 30일 – 5월 18일</span>
+<span><span class="dot"></span> 총 12공연</span>
+</div>
+</div>
+</div>
+<div class="stats-bar">
+<div class="stat-item"><div class="stat-label">총 공연일</div><div class="stat-value">12<span class="stat-unit">days</span></div></div>
+<div class="stat-item"><div class="stat-label">최다 곡수</div><div class="stat-value">39<span class="stat-unit">곡 (DAY9)</span></div></div>
+<div class="stat-item"><div class="stat-label">최장 공연</div><div class="stat-value">DAY12<span class="stat-unit"> ~3h16m</span></div></div>
+<div class="stat-item"><div class="stat-label">앙코르 최다</div><div class="stat-value">4<span class="stat-unit">안 (DAY12)</span></div></div>
+<div class="stat-item"><div class="stat-label">신청곡 총수</div><div class="stat-value">47<span class="stat-unit">곡</span></div></div>
+<div class="stat-item"><div class="stat-label">게스트</div><div class="stat-value">周深<span class="stat-unit"> (DAY6)</span></div></div>
+</div>
+<!-- Tab navigation -->
+<div class="tab-nav">
+<button class="tab-btn active" onclick="switchTab('setlist')">📋 전체 세트리스트</button>
+<button class="tab-btn" onclick="switchTab('frequent')">⭐ 자주 부른 노래</button>
+</div>
+<!-- Tab: 전체 세트리스트 -->
+<div class="tab-panel active" id="tab-setlist">
+<!-- Filter bar -->
+<div class="filter-bar">
+<div class="filter-bar-inner">
+<span class="filter-label">DAY 선택:</span>
+<button class="filter-btn all-btn" onclick="selectAll()">전체</button>
+<div class="filter-divider"></div>
+<button class="filter-btn" data-day="1" onclick="toggleDay(this,1)">DAY 1<br/><span style="font-size:10px;font-weight:400">4.30</span></button>
+<button class="filter-btn" data-day="2" onclick="toggleDay(this,2)">DAY 2<br/><span style="font-size:10px;font-weight:400">5.01</span></button>
+<button class="filter-btn" data-day="3" onclick="toggleDay(this,3)">DAY 3<br/><span style="font-size:10px;font-weight:400">5.02</span></button>
+<button class="filter-btn" data-day="4" onclick="toggleDay(this,4)">DAY 4<br/><span style="font-size:10px;font-weight:400">5.03</span></button>
+<button class="filter-btn" data-day="5" onclick="toggleDay(this,5)">DAY 5<br/><span style="font-size:10px;font-weight:400">5.08</span></button>
+<button class="filter-btn" data-day="6" onclick="toggleDay(this,6)">DAY 6<br/><span style="font-size:10px;font-weight:400">5.09</span></button>
+<button class="filter-btn" data-day="7" onclick="toggleDay(this,7)">DAY 7<br/><span style="font-size:10px;font-weight:400">5.10</span></button>
+<button class="filter-btn" data-day="8" onclick="toggleDay(this,8)">DAY 8<br/><span style="font-size:10px;font-weight:400">5.11</span></button>
+<button class="filter-btn" data-day="9" onclick="toggleDay(this,9)">DAY 9<br/><span style="font-size:10px;font-weight:400">5.15</span></button>
+<button class="filter-btn" data-day="10" onclick="toggleDay(this,10)">DAY 10<br/><span style="font-size:10px;font-weight:400">5.16</span></button>
+<button class="filter-btn" data-day="11" onclick="toggleDay(this,11)">DAY 11<br/><span style="font-size:10px;font-weight:400">5.17</span></button>
+<button class="filter-btn" data-day="12" onclick="toggleDay(this,12)">DAY 12<br/><span style="font-size:10px;font-weight:400">5.18</span></button>
+</div>
+</div>
+<div class="legend-bar">
+<div class="legend-bar-inner">
+<span class="legend-label">범례:</span>
+<span class="tag tag-main">본공연</span>
+<span class="tag tag-req">관객 신청곡</span>
+<span class="tag tag-enc">앙코르</span>
+<span class="tag tag-special">清唱</span>
+<span class="tag tag-guest">게스트</span>
+<span class="tag tag-artist">아티스트 직접 선곡</span>
+<span style="font-size:11px;color:var(--text3);margin-left:8px;">※ 배경 강조 = DAY간 변동 행</span>
+</div>
+</div>
+<div class="table-outer">
+<div class="scroll-wrap">
+<table id="setlist-table">
+<thead>
+<tr>
+<th class="left" style="width:32px">#</th>
+<th class="day-col" data-col="1"><span class="day-title">DAY 1</span><span class="day-date">4.30</span><span class="day-time">18:49→21:37</span></th>
+<th class="day-col" data-col="2"><span class="day-title">DAY 2</span><span class="day-date">5.01</span><span class="day-time">18:49→21:47</span></th>
+<th class="day-col" data-col="3"><span class="day-title">DAY 3</span><span class="day-date">5.02</span><span class="day-time">18:47→21:50</span></th>
+<th class="day-col" data-col="4"><span class="day-title">DAY 4</span><span class="day-date">5.03</span><span class="day-time">18:47→21:50</span></th>
+<th class="day-col" data-col="5"><span class="day-title">DAY 5</span><span class="day-date">5.08</span><span class="day-time">18:47→21:49</span></th>
+<th class="day-col" data-col="6"><span class="day-title">DAY 6</span><span class="day-date">5.09</span><span class="day-time">18:46→21:55</span></th>
+<th class="day-col" data-col="7"><span class="day-title">DAY 7</span><span class="day-date">5.10</span><span class="day-time">18:52→21:59</span></th>
+<th class="day-col" data-col="8"><span class="day-title">DAY 8</span><span class="day-date">5.11</span><span class="day-time">18:40→21:52</span></th>
+<th class="day-col" data-col="9"><span class="day-title">DAY 9</span><span class="day-date">5.15</span><span class="day-time">18:40→21:52</span></th>
+<th class="day-col" data-col="10"><span class="day-title">DAY 10</span><span class="day-date">5.16</span><span class="day-time">18:49→21:56</span></th>
+<th class="day-col" data-col="11"><span class="day-title">DAY 11</span><span class="day-date">5.17</span><span class="day-time">18:57→22:03</span></th>
+<th class="day-col" data-col="12"><span class="day-title">DAY 12</span><span class="day-date">5.18</span><span class="day-time">18:44→22:00</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="no-data-row"><td colspan="13">DAY를 선택해주세요.</td></tr>
+<tr class="section-row"><td colspan="13">Opening</td></tr>
+<tr><td class="num">1</td><td class="day day-col" data-col="1"><span class="tag tag-main">OAOA</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">OAOA</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">OAOA</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">OAOA</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">OAOA</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">OAOA</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">OAOA</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">OAOA</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">OAOA</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">OAOA</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">OAOA</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">OAOA</span></td></tr>
+<tr><td class="num">2</td><td class="day day-col" data-col="1"><span class="tag tag-main">孫悟空</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">孫悟空</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">孫悟空</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">孫悟空</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">孫悟空</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">孫悟空</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">孫悟空</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">孫悟空</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">孫悟空</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">孫悟空</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">孫悟空</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">孫悟空</span></td></tr>
+<tr><td class="num">3</td><td class="day day-col" data-col="1"><span class="tag tag-main">入陣曲</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">入陣曲</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">入陣曲</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">入陣曲</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">入陣曲</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">入陣曲</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">入陣曲</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">入陣曲</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">入陣曲</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">入陣曲</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">入陣曲</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">入陣曲</span></td></tr>
+<tr><td class="num">4</td><td class="day day-col" data-col="1"><span class="tag tag-main">乾杯</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">乾杯</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">乾杯</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">乾杯</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">乾杯</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">乾杯</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">乾杯</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">乾杯</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">乾杯</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">乾杯</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">乾杯</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">乾杯</span></td></tr>
+<tr><td class="num">5</td><td class="day day-col" data-col="1"><span class="tag tag-main">終結孤單</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">終結孤單</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">終結孤單</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">終結孤單</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">終結孤單</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">終結孤單</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">終結孤單</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">終結孤單</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">終結孤單</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">終結孤單</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">終結孤單</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">終結孤單</span></td></tr>
+<tr class="diff"><td class="num">6</td><td class="day day-col" data-col="1"><span class="none">—</span></td><td class="day day-col" data-col="2"><span class="none">—</span></td><td class="day day-col" data-col="3"><span class="none">—</span></td><td class="day day-col" data-col="4"><span class="none">—</span></td><td class="day day-col" data-col="5"><span class="none">—</span></td><td class="day day-col" data-col="6"><span class="none">—</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">有些事+約翰藍儂</span></td><td class="day day-col" data-col="8"><span class="none">—</span></td><td class="day day-col" data-col="9"><span class="none">—</span></td><td class="day day-col" data-col="10"><span class="none">—</span></td><td class="day day-col" data-col="11"><span class="none">—</span></td><td class="day day-col" data-col="12"><span class="none">—</span></td></tr>
+<tr class="break-row"><td colspan="13">— Talking —</td></tr>
+<tr class="section-row"><td colspan="13">Main Set</td></tr>
+<tr><td class="num">7</td><td class="day day-col" data-col="1"><span class="tag tag-main">成名在望+如果我們不曾相遇</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">成名在望+如果我們不曾相遇</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">成名在望+如果我們不曾相遇</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">成名在望+如果我們不曾相遇</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">成名在望+如果我們不曾相遇</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">成名在望+如果我們不曾相遇</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">成名在望+如果我們不曾相遇</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">成名在望+如果我們不曾相遇</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">成名在望+如果我們不曾相遇</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">成名在望+如果我們不曾相遇</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">成名在望+如果我們不曾相遇</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">成名在望+如果我們不曾相遇</span></td></tr>
+<tr class="diff"><td class="num">8</td><td class="day day-col" data-col="1"><span class="tag tag-main">我不願讓你一個人+諾亞方舟</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">我不願讓你一個人+諾亞方舟</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">我不願讓你一個人+諾亞方舟</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">我不願讓你一個人+諾亞方舟</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">我不願讓你一個人+諾亞方舟</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">我不願讓你一個人+諾亞方舟</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">我不願讓你一個人+諾亞方舟</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">我不願讓你一個人+諾亞方舟</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">我不願讓你一個人+諾亞方舟</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">我不願讓你一個人+諾亞方舟</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">第二人生+星空</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">第二人生+星空</span></td></tr>
+<tr><td class="num">9</td><td class="day day-col" data-col="1"><span class="tag tag-main">我心中尚未崩壞的地方</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">我心中尚未崩壞的地方</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">我心中尚未崩壞的地方</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">我心中尚未崩壞的地方</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">我心中尚未崩壞的地方</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">我心中尚未崩壞的地方</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">我心中尚未崩壞的地方</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">我心中尚未崩壞的地方</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">我心中尚未崩壞的地方</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">我心中尚未崩壞的地方</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">我心中尚未崩壞的地方</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">我心中尚未崩壞的地方</span></td></tr>
+<tr class="diff"><td class="num">10</td><td class="day day-col" data-col="1"><span class="tag tag-main">最重要的小事+香水</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">最重要的小事+香水</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">最重要的小事+香水</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">最重要的小事+香水</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">最重要的小事+香水</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">最重要的小事+香水</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">最重要的小事+香水</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">最重要的小事+香水</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">最重要的小事+香水</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">天使+一千個世紀</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">最重要的小事+香水</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">最重要的小事+香水</span></td></tr>
+<tr class="diff"><td class="num">11</td><td class="day day-col" data-col="1"><span class="tag tag-main">一千個世紀</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">一千個世紀</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">一千個世紀</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">一千個世紀</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">一千個世紀</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">一千個世紀</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">一千個世紀</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">一千個世紀</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">一千個世紀</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">讓我照顧你</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">一千個世紀</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">一千個世紀</span></td></tr>
+<tr class="diff"><td class="num">12</td><td class="day day-col" data-col="1"><span class="tag tag-main">有些事+約翰藍儂</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">有些事+約翰藍儂</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">有些事+約翰藍儂</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">有些事+約翰藍儂</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">有些事+約翰藍儂</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">有些事+約翰藍儂</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">超人</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">有些事+約翰藍儂</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">有些事+約翰藍儂</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">九號球+恆星的恆心+時光機</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">有些事+約翰藍儂</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">有些事+約翰藍儂</span></td></tr>
+<tr class="diff"><td class="num">13</td><td class="day day-col" data-col="1"><span class="tag tag-main">九號球+恆星的恆心+時光機</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">九號球+恆星的恆心+時光機</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">九號球+恆星的恆心+時光機</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">九號球+恆星的恆心+時光機</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">九號球+恆星的恆心+時光機</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">九號球+恆星的恆心+時光機</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">九號球+恆星的恆心+時光機</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">九號球+恆星的恆心+時光機</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">九號球+恆星的恆心+時光機</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">相信+人生海海</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">九號球+恆星的恆心+時光機</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">九號球+恆星的恆心+時光機</span></td></tr>
+<tr class="diff"><td class="num">14</td><td class="day day-col" data-col="1"><span class="tag tag-main">相信+人生海海</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">相信+人生海海</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">相信+人生海海</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">相信+人生海海</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">相信+人生海海</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">相信+人生海海</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">相信+人生海海</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">相信+人生海海</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">相信+人生海海</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">愛情萬歲</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">相信+人生海海</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">相信+人生海海</span></td></tr>
+<tr class="diff"><td class="num">15</td><td class="day day-col" data-col="1"><span class="tag tag-main">愛情萬歲</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">愛情萬歲</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">愛情萬歲</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">愛情萬歲</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">愛情萬歲</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">愛情萬歲</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">愛情萬歲</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">愛情萬歲</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">愛情萬歲</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">瘋狂世界</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">愛情萬歲</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">愛情萬歲</span></td></tr>
+<tr class="diff"><td class="num">16</td><td class="day day-col" data-col="1"><span class="tag tag-main">瘋狂世界</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">瘋狂世界</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">瘋狂世界</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">瘋狂世界</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">瘋狂世界</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">瘋狂世界</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">瘋狂世界</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">瘋狂世界</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">瘋狂世界</span></td><td class="day day-col" data-col="10"><span class="none">—</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">瘋狂世界</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">瘋狂世界</span></td></tr>
+<tr class="break-row"><td colspan="13">— VCR —</td></tr>
+<tr class="section-row"><td colspan="13">Encore Warm-Up</td></tr>
+<tr><td class="num">17</td><td class="day day-col" data-col="1"><span class="tag tag-main">派對動物</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">派對動物</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">派對動物</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">派對動物</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">派對動物</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">派對動物</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">派對動物</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">派對動物</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">派對動物</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">派對動物</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">派對動物</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">派對動物</span></td></tr>
+<tr><td class="num">18</td><td class="day day-col" data-col="1"><span class="tag tag-main">離開地球表面</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">離開地球表面</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">離開地球表面</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">離開地球表面</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">離開地球表面</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">離開地球表面</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">離開地球表面</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">離開地球表面</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">離開地球表面</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">離開地球表面</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">離開地球表面</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">離開地球表面</span></td></tr>
+<tr><td class="num">19</td><td class="day day-col" data-col="1"><span class="tag tag-main">戀愛ing</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">戀愛ing</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">戀愛ing</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">戀愛ing</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">戀愛ing</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">戀愛ing</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">戀愛ing</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">戀愛ing</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">戀愛ing</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">戀愛ing</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">戀愛ing</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">戀愛ing</span></td></tr>
+<tr class="break-row"><td colspan="13">— Talking + 신청곡 —</td></tr>
+<tr class="section-row"><td colspan="13">관객 신청곡 코너</td></tr>
+<tr class="diff"><td class="num">20</td><td class="day day-col" data-col="1"><span class="tag tag-req">小護士</span></td><td class="day day-col" data-col="2"><span class="tag tag-req">燕尾蝶</span></td><td class="day day-col" data-col="3"><span class="tag tag-req">開天窗</span></td><td class="day day-col" data-col="4"><span class="tag tag-req">你說的C和弦就是…</span></td><td class="day day-col" data-col="5"><span class="tag tag-req">垃圾車</span></td><td class="day day-col" data-col="6"><span class="tag tag-req">倉頡</span></td><td class="day day-col" data-col="7"><span class="tag tag-req">雨眠</span></td><td class="day day-col" data-col="8"><span class="tag tag-req">天使+明白</span></td><td class="day day-col" data-col="9"><span class="tag tag-req">回來吧</span></td><td class="day day-col" data-col="10"><span class="tag tag-req">將軍令</span></td><td class="day day-col" data-col="11"><span class="tag tag-artist">讓我照顧你(阿信)</span></td><td class="day day-col" data-col="12"><span class="tag tag-artist">金多蝦(阿信)</span></td></tr>
+<tr class="diff"><td class="num">21</td><td class="day day-col" data-col="1"><span class="tag tag-req">如煙</span></td><td class="day day-col" data-col="2"><span class="tag tag-req">兄弟</span></td><td class="day day-col" data-col="3"><span class="tag tag-req">少年他的奇幻漂流</span></td><td class="day day-col" data-col="4"><span class="tag tag-req">好好</span></td><td class="day day-col" data-col="5"><span class="tag tag-req">哄我入睡</span></td><td class="day day-col" data-col="6"><span class="tag tag-req">純真</span></td><td class="day day-col" data-col="7"><span class="tag tag-req">私奔到月球</span></td><td class="day day-col" data-col="8"><span class="tag tag-req">勇敢+牙關</span></td><td class="day day-col" data-col="9"><span class="tag tag-req">忘詞</span></td><td class="day day-col" data-col="10"><span class="tag tag-req">步步</span></td><td class="day day-col" data-col="11"><span class="tag tag-req">勇敢</span></td><td class="day day-col" data-col="12"><span class="tag tag-req">出頭天</span></td></tr>
+<tr class="diff"><td class="num">22</td><td class="day day-col" data-col="1"><span class="tag tag-req">左鍵</span></td><td class="day day-col" data-col="2"><span class="tag tag-req">噢買尬</span></td><td class="day day-col" data-col="3"><span class="tag tag-req">愛情的模樣</span></td><td class="day day-col" data-col="4"><span class="tag tag-req">一顆蘋果</span></td><td class="day day-col" data-col="5"><span class="tag tag-req">麥來亂</span></td><td class="day day-col" data-col="6"><span class="tag tag-req">候鳥</span></td><td class="day day-col" data-col="7"><span class="tag tag-req">洗衣機</span></td><td class="day day-col" data-col="8"><span class="tag tag-req">王子麵+星空</span></td><td class="day day-col" data-col="9"><span class="tag tag-req">一顆蘋果</span></td><td class="day day-col" data-col="10"><span class="tag tag-req">風若吹</span></td><td class="day day-col" data-col="11"><span class="tag tag-req">我又初戀了+讓我照顧你</span></td><td class="day day-col" data-col="12"><span class="tag tag-req">我</span></td></tr>
+<tr class="diff"><td class="num">23</td><td class="day day-col" data-col="1"><span class="tag tag-req">寵上天</span></td><td class="day day-col" data-col="2"><span class="tag tag-req">終於結束的起點</span></td><td class="day day-col" data-col="3"><span class="tag tag-req">如果我們不曾相遇</span></td><td class="day day-col" data-col="4"><span class="tag tag-req">好不好</span></td><td class="day day-col" data-col="5"><span class="tag tag-req">春天的吶喊</span></td><td class="day day-col" data-col="6"><span class="tag tag-req">我們</span></td><td class="day day-col" data-col="7"><span class="tag tag-req">小時候</span></td><td class="day day-col" data-col="8"><span class="tag tag-req">在這一秒</span></td><td class="day day-col" data-col="9"><span class="tag tag-req">不見不散</span></td><td class="day day-col" data-col="10"><span class="tag tag-req">米老鼠</span></td><td class="day day-col" data-col="11"><span class="tag tag-req">雨眠+心中無別人</span></td><td class="day day-col" data-col="12"><span class="tag tag-req">搖滾本事</span></td></tr>
+<tr class="diff"><td class="num">—</td><td class="day day-col" data-col="1"><span class="none">—</span></td><td class="day day-col" data-col="2"><span class="none">—</span></td><td class="day day-col" data-col="3"><span class="none">—</span></td><td class="day day-col" data-col="4"><span class="none">—</span></td><td class="day day-col" data-col="5"><span class="none">—</span></td><td class="day day-col" data-col="6"><span class="none">—</span></td><td class="day day-col" data-col="7"><span class="none">—</span></td><td class="day day-col" data-col="8"><span class="none">—</span></td><td class="day day-col" data-col="9"><span class="none">—</span></td><td class="day day-col" data-col="10"><span class="none">—</span></td><td class="day day-col" data-col="11"><span class="tag tag-req">我們</span></td><td class="day day-col" data-col="12"><span class="none">—</span></td></tr>
+<tr class="section-row"><td colspan="13">공연 마무리</td></tr>
+<tr class="diff"><td class="num">24</td><td class="day day-col" data-col="1"><span class="tag tag-main">後來的我們</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">你不是真正的快樂</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">溫柔</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">知足</span></td><td class="day day-col" data-col="5"><span class="tag tag-special">任性(清唱)</span></td><td class="day day-col" data-col="6"><span class="tag tag-guest">達拉崩吧 w.周深</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">知足</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">後來的我們</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">知足</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">突然好想你</span></td><td class="day day-col" data-col="11"><span class="none">—</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">知足</span></td></tr>
+<tr class="diff"><td class="num">25</td><td class="day day-col" data-col="1"><span class="tag tag-main">突然好想你</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">突然好想你</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">突然好想你</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">突然好想你</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">你不是真正的快樂</span></td><td class="day day-col" data-col="6"><span class="none">—</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">突然好想你</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">突然好想你</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">突然好想你</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">轉眼</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">突然好想你</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">突然好想你</span></td></tr>
+<tr class="diff"><td class="num">26</td><td class="day day-col" data-col="1"><span class="none">—</span></td><td class="day day-col" data-col="2"><span class="none">—</span></td><td class="day day-col" data-col="3"><span class="none">—</span></td><td class="day day-col" data-col="4"><span class="none">—</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">突然好想你</span></td><td class="day day-col" data-col="6"><span class="tag tag-guest">擁抱 ft.周深</span></td><td class="day day-col" data-col="7"><span class="none">—</span></td><td class="day day-col" data-col="8"><span class="none">—</span></td><td class="day day-col" data-col="9"><span class="none">—</span></td><td class="day day-col" data-col="10"><span class="tag tag-main">任意門</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">轉眼</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">轉眼</span></td></tr>
+<tr class="diff"><td class="num">27</td><td class="day day-col" data-col="1"><span class="none">—</span></td><td class="day day-col" data-col="2"><span class="none">—</span></td><td class="day day-col" data-col="3"><span class="none">—</span></td><td class="day day-col" data-col="4"><span class="none">—</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">突然好想你</span></td><td class="day day-col" data-col="6"><span class="tag tag-guest">如煙 ft.周深</span></td><td class="day day-col" data-col="7"><span class="none">—</span></td><td class="day day-col" data-col="8"><span class="none">—</span></td><td class="day day-col" data-col="9"><span class="none">—</span></td><td class="day day-col" data-col="10"><span class="none">—</span></td><td class="day day-col" data-col="11"><span class="none">—</span></td><td class="day day-col" data-col="12"><span class="none">—</span></td></tr>
+<tr class="diff"><td class="num">28</td><td class="day day-col" data-col="1"><span class="none">—</span></td><td class="day day-col" data-col="2"><span class="none">—</span></td><td class="day day-col" data-col="3"><span class="none">—</span></td><td class="day day-col" data-col="4"><span class="none">—</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">轉眼</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">轉眼</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">轉眼</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">轉眼</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">轉眼</span></td><td class="day day-col" data-col="10"><span class="none">—</span></td><td class="day day-col" data-col="11"><span class="none">—</span></td><td class="day day-col" data-col="12"><span class="none">—</span></td></tr>
+<tr class="diff"><td class="num">29</td><td class="day day-col" data-col="1"><span class="tag tag-main">任意門</span></td><td class="day day-col" data-col="2"><span class="tag tag-main">任性</span></td><td class="day day-col" data-col="3"><span class="tag tag-main">任意門</span></td><td class="day day-col" data-col="4"><span class="tag tag-main">任意門</span></td><td class="day day-col" data-col="5"><span class="tag tag-main">任意門</span></td><td class="day day-col" data-col="6"><span class="tag tag-main">任性+倔強</span></td><td class="day day-col" data-col="7"><span class="tag tag-main">任意門</span></td><td class="day day-col" data-col="8"><span class="tag tag-main">任性+倔強</span></td><td class="day day-col" data-col="9"><span class="tag tag-main">任意門</span></td><td class="day day-col" data-col="10"><span class="none">—</span></td><td class="day day-col" data-col="11"><span class="tag tag-main">任性+任意門</span></td><td class="day day-col" data-col="12"><span class="tag tag-main">任性+任意門+OAOA</span></td></tr>
+<tr class="section-row"><td colspan="13">Encore 1안</td></tr>
+<tr><td class="num">30</td><td class="day day-col" data-col="1"><span class="tag tag-enc">最好的一天</span></td><td class="day day-col" data-col="2"><span class="tag tag-enc">最好的一天</span></td><td class="day day-col" data-col="3"><span class="tag tag-enc">最好的一天</span></td><td class="day day-col" data-col="4"><span class="tag tag-enc">最好的一天</span></td><td class="day day-col" data-col="5"><span class="tag tag-enc">最好的一天</span></td><td class="day day-col" data-col="6"><span class="tag tag-enc">最好的一天</span></td><td class="day day-col" data-col="7"><span class="tag tag-enc">最好的一天</span></td><td class="day day-col" data-col="8"><span class="tag tag-enc">最好的一天</span></td><td class="day day-col" data-col="9"><span class="tag tag-enc">最好的一天</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">最好的一天</span></td><td class="day day-col" data-col="11"><span class="tag tag-enc">最好的一天</span></td><td class="day day-col" data-col="12"><span class="tag tag-enc">最好的一天</span></td></tr>
+<tr><td class="num">31</td><td class="day day-col" data-col="1"><span class="tag tag-enc">盛夏光年</span></td><td class="day day-col" data-col="2"><span class="tag tag-enc">盛夏光年</span></td><td class="day day-col" data-col="3"><span class="tag tag-enc">盛夏光年</span></td><td class="day day-col" data-col="4"><span class="tag tag-enc">盛夏光年</span></td><td class="day day-col" data-col="5"><span class="tag tag-enc">盛夏光年</span></td><td class="day day-col" data-col="6"><span class="tag tag-enc">盛夏光年</span></td><td class="day day-col" data-col="7"><span class="tag tag-enc">盛夏光年</span></td><td class="day day-col" data-col="8"><span class="tag tag-enc">盛夏光年</span></td><td class="day day-col" data-col="9"><span class="tag tag-enc">盛夏光年</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">盛夏光年</span></td><td class="day day-col" data-col="11"><span class="tag tag-enc">盛夏光年</span></td><td class="day day-col" data-col="12"><span class="tag tag-enc">盛夏光年</span></td></tr>
+<tr><td class="num">32</td><td class="day day-col" data-col="1"><span class="tag tag-enc">第一天</span></td><td class="day day-col" data-col="2"><span class="tag tag-enc">第一天</span></td><td class="day day-col" data-col="3"><span class="tag tag-enc">第一天</span></td><td class="day day-col" data-col="4"><span class="tag tag-enc">第一天</span></td><td class="day day-col" data-col="5"><span class="tag tag-enc">第一天</span></td><td class="day day-col" data-col="6"><span class="tag tag-enc">第一天</span></td><td class="day day-col" data-col="7"><span class="tag tag-enc">第一天</span></td><td class="day day-col" data-col="8"><span class="tag tag-enc">第一天</span></td><td class="day day-col" data-col="9"><span class="tag tag-enc">第一天</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">第一天</span></td><td class="day day-col" data-col="11"><span class="tag tag-enc">第一天</span></td><td class="day day-col" data-col="12"><span class="tag tag-enc">第一天</span></td></tr>
+<tr><td class="num">33</td><td class="day day-col" data-col="1"><span class="tag tag-enc">傷心的人別聽慢歌</span></td><td class="day day-col" data-col="2"><span class="tag tag-enc">傷心的人別聽慢歌</span></td><td class="day day-col" data-col="3"><span class="tag tag-enc">傷心的人別聽慢歌</span></td><td class="day day-col" data-col="4"><span class="tag tag-enc">傷心的人別聽慢歌</span></td><td class="day day-col" data-col="5"><span class="tag tag-enc">傷心的人別聽慢歌</span></td><td class="day day-col" data-col="6"><span class="tag tag-enc">傷心的人別聽慢歌</span></td><td class="day day-col" data-col="7"><span class="tag tag-enc">傷心的人別聽慢歌</span></td><td class="day day-col" data-col="8"><span class="tag tag-enc">傷心的人別聽慢歌</span></td><td class="day day-col" data-col="9"><span class="tag tag-enc">傷心的人別聽慢歌</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">傷心的人別聽慢歌</span></td><td class="day day-col" data-col="11"><span class="tag tag-enc">傷心的人別聽慢歌</span></td><td class="day day-col" data-col="12"><span class="tag tag-enc">傷心的人別聽慢歌</span></td></tr>
+<tr class="diff"><td class="num">34</td><td class="day day-col" data-col="1"><span class="tag tag-enc">倔強</span></td><td class="day day-col" data-col="2"><span class="tag tag-enc">倔強</span></td><td class="day day-col" data-col="3"><span class="tag tag-enc">倔強</span></td><td class="day day-col" data-col="4"><span class="tag tag-enc">倔強</span></td><td class="day day-col" data-col="5"><span class="tag tag-enc">倔強</span></td><td class="day day-col" data-col="6"><span class="tag tag-enc">倔強</span></td><td class="day day-col" data-col="7"><span class="tag tag-enc">倔強</span></td><td class="day day-col" data-col="8"><span class="tag tag-enc">倔強</span></td><td class="day day-col" data-col="9"><span class="tag tag-enc">倔強</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">倔強</span></td><td class="day day-col" data-col="11"><span class="none">—</span></td><td class="day day-col" data-col="12"><span class="tag tag-enc">倔強</span></td></tr>
+<tr class="diff"><td class="num">35</td><td class="day day-col" data-col="1"><span class="tag tag-enc">笑忘歌</span></td><td class="day day-col" data-col="2"><span class="tag tag-enc">笑忘歌+任意門</span></td><td class="day day-col" data-col="3"><span class="tag tag-enc">笑忘歌</span></td><td class="day day-col" data-col="4"><span class="tag tag-enc">笑忘歌</span></td><td class="day day-col" data-col="5"><span class="tag tag-enc">笑忘歌</span></td><td class="day day-col" data-col="6"><span class="tag tag-enc">笑忘歌</span></td><td class="day day-col" data-col="7"><span class="tag tag-enc">笑忘歌</span></td><td class="day day-col" data-col="8"><span class="tag tag-enc">笑忘歌</span></td><td class="day day-col" data-col="9"><span class="tag tag-enc">笑忘歌</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">笑忘歌</span></td><td class="day day-col" data-col="11"><span class="tag tag-enc">笑忘歌</span></td><td class="day day-col" data-col="12"><span class="tag tag-enc">笑忘歌</span></td></tr>
+<tr class="section-row"><td colspan="13">Encore 2안</td></tr>
+<tr class="diff"><td class="num">36</td><td class="day day-col" data-col="1"><span class="tag tag-enc">花</span></td><td class="day day-col" data-col="2"><span class="tag tag-enc">一顆蘋果</span></td><td class="day day-col" data-col="3"><span class="tag tag-enc">你是唯一</span></td><td class="day day-col" data-col="4"><span class="tag tag-enc">將軍令</span></td><td class="day day-col" data-col="5"><span class="tag tag-enc">洗衣機+聽媽媽的話</span></td><td class="day day-col" data-col="6"><span class="tag tag-enc">突然好想你</span></td><td class="day day-col" data-col="7"><span class="tag tag-enc">夜訪吸血鬼</span></td><td class="day day-col" data-col="8"><span class="tag tag-enc">溫柔</span></td><td class="day day-col" data-col="9"><span class="tag tag-enc">放肆</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">OAOA</span></td><td class="day day-col" data-col="11"><span class="tag tag-enc">2012</span></td><td class="day day-col" data-col="12"><span class="tag tag-enc">八月愛人</span></td></tr>
+<tr class="diff"><td class="num">37</td><td class="day day-col" data-col="1"><span class="tag tag-enc">步步</span></td><td class="day day-col" data-col="2"><span class="tag tag-enc">命運</span></td><td class="day day-col" data-col="3"><span class="tag tag-enc">牙關+I Love You 無望</span></td><td class="day day-col" data-col="4"><span class="tag tag-enc">羅密歐與茱麗葉</span></td><td class="day day-col" data-col="5"><span class="tag tag-enc">忘詞</span></td><td class="day day-col" data-col="6"><span class="tag tag-enc">Do You Ever Shine?</span></td><td class="day day-col" data-col="7"><span class="tag tag-enc">為愛而生</span></td><td class="day day-col" data-col="8"><span class="tag tag-enc">候鳥</span></td><td class="day day-col" data-col="9"><span class="tag tag-enc">三個傻瓜</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">OK啦</span></td><td class="day day-col" data-col="11"><span class="tag tag-enc">第二人生</span></td><td class="day day-col" data-col="12"><span class="tag tag-enc">如果我們不曾相遇</span></td></tr>
+<tr class="diff"><td class="num">38</td><td class="day day-col" data-col="1"><span class="none">—</span></td><td class="day day-col" data-col="2"><span class="tag tag-enc">洋蔥+刻在我心底的名字</span></td><td class="day day-col" data-col="3"><span class="tag tag-enc">頑固</span></td><td class="day day-col" data-col="4"><span class="tag tag-enc">讓我照顧你+任意門</span></td><td class="day day-col" data-col="5"><span class="tag tag-enc">私奔到月球</span></td><td class="day day-col" data-col="6"><span class="tag tag-enc">愛情的模樣</span></td><td class="day day-col" data-col="7"><span class="tag tag-enc">刻在我心底的名字+後來的我們</span></td><td class="day day-col" data-col="8"><span class="tag tag-enc">洋蔥</span></td><td class="day day-col" data-col="9"><span class="tag tag-enc">而我知道</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">借問眾神明</span></td><td class="day day-col" data-col="11"><span class="tag tag-enc">倔強</span></td><td class="day day-col" data-col="12"><span class="tag tag-enc">你是唯一</span></td></tr>
+<tr class="diff"><td class="num">39</td><td class="day day-col" data-col="1"><span class="none">—</span></td><td class="day day-col" data-col="2"><span class="none">—</span></td><td class="day day-col" data-col="3"><span class="none">—</span></td><td class="day day-col" data-col="4"><span class="none">—</span></td><td class="day day-col" data-col="5"><span class="tag tag-enc">小太陽(清唱)+寂寞星球</span></td><td class="day day-col" data-col="6"><span class="tag tag-enc">一半人生</span></td><td class="day day-col" data-col="7"><span class="none">—</span></td><td class="day day-col" data-col="8"><span class="none">—</span></td><td class="day day-col" data-col="9"><span class="tag tag-enc">一半人生+頑固</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">永遠的永遠</span></td><td class="day day-col" data-col="11"><span class="none">—</span></td><td class="day day-col" data-col="12"><span class="tag tag-enc">讓我照顧你+說好不哭</span></td></tr>
+<tr class="diff"><td class="num">40</td><td class="day day-col" data-col="1"><span class="none">—</span></td><td class="day day-col" data-col="2"><span class="none">—</span></td><td class="day day-col" data-col="3"><span class="none">—</span></td><td class="day day-col" data-col="4"><span class="none">—</span></td><td class="day day-col" data-col="5"><span class="none">—</span></td><td class="day day-col" data-col="6"><span class="tag tag-enc">後青春期的詩</span></td><td class="day day-col" data-col="7"><span class="none">—</span></td><td class="day day-col" data-col="8"><span class="none">—</span></td><td class="day day-col" data-col="9"><span class="none">—</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">亂世浮生</span></td><td class="day day-col" data-col="11"><span class="none">—</span></td><td class="day day-col" data-col="12"><span class="none">—</span></td></tr>
+<tr class="section-row"><td colspan="13">Encore 3안</td></tr>
+<tr class="diff"><td class="num">41</td><td class="day day-col" data-col="1"><span class="tag tag-enc">倉頡</span></td><td class="day day-col" data-col="2"><span class="none">—</span></td><td class="day day-col" data-col="3"><span class="none">—</span></td><td class="day day-col" data-col="4"><span class="none">—</span></td><td class="day day-col" data-col="5"><span class="none">—</span></td><td class="day day-col" data-col="6"><span class="none">—</span></td><td class="day day-col" data-col="7"><span class="none">—</span></td><td class="day day-col" data-col="8"><span class="none">—</span></td><td class="day day-col" data-col="9"><span class="tag tag-enc">你說那C和弦就是…</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">證明</span></td><td class="day day-col" data-col="11"><span class="tag tag-enc">倉頡+虛弱+明白</span></td><td class="day day-col" data-col="12"><span class="tag tag-enc">憨人+嘿！我要走了</span></td></tr>
+<tr class="diff"><td class="num">42</td><td class="day day-col" data-col="1"><span class="none">—</span></td><td class="day day-col" data-col="2"><span class="none">—</span></td><td class="day day-col" data-col="3"><span class="none">—</span></td><td class="day day-col" data-col="4"><span class="none">—</span></td><td class="day day-col" data-col="5"><span class="none">—</span></td><td class="day day-col" data-col="6"><span class="none">—</span></td><td class="day day-col" data-col="7"><span class="none">—</span></td><td class="day day-col" data-col="8"><span class="none">—</span></td><td class="day day-col" data-col="9"><span class="tag tag-enc">為你寫下這首情歌</span></td><td class="day day-col" data-col="10"><span class="tag tag-enc">後來的我們</span></td><td class="day day-col" data-col="11"><span class="none">—</span></td><td class="day day-col" data-col="12"><span class="none">—</span></td></tr>
+<tr class="section-row"><td colspan="13">Encore 4안 (DAY12)</td></tr>
+<tr class="diff"><td class="num">43</td><td class="day day-col" data-col="1"><span class="none">—</span></td><td class="day day-col" data-col="2"><span class="none">—</span></td><td class="day day-col" data-col="3"><span class="none">—</span></td><td class="day day-col" data-col="4"><span class="none">—</span></td><td class="day day-col" data-col="5"><span class="none">—</span></td><td class="day day-col" data-col="6"><span class="none">—</span></td><td class="day day-col" data-col="7"><span class="none">—</span></td><td class="day day-col" data-col="8"><span class="none">—</span></td><td class="day day-col" data-col="9"><span class="none">—</span></td><td class="day day-col" data-col="10"><span class="none">—</span></td><td class="day day-col" data-col="11"><span class="none">—</span></td><td class="day day-col" data-col="12"><span class="tag tag-enc">派對動物</span></td></tr>
+</tbody>
+</table>
+</div><!-- end scroll-wrap -->
+</div><!-- end table-outer -->
+</div><!-- end tab-setlist -->
+<!-- Tab: 자주 부른 노래 -->
+<div class="tab-panel" id="tab-frequent">
+<div class="freq-outer">
+<p class="freq-intro">
+      본공연 + 앙코르 기준, 북경 12일 공연 중 <strong>10회 이상</strong> 등장한 곡 목록입니다. (신청곡 코너 제외)<br/>
+      공연 순서 기준으로 정렬되어 있습니다.
+    </p>
+<div class="freq-section-title">Opening</div>
+<div class="freq-row"><span class="freq-num">1</span><span class="freq-song">OAOA</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">2</span><span class="freq-song">孫悟空</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">3</span><span class="freq-song">入陣曲</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">4</span><span class="freq-song">乾杯</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">5</span><span class="freq-song">終結孤單</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-section-title">Main Set</div>
+<div class="freq-row"><span class="freq-num">6</span><span class="freq-song">成名在望 + 如果我們不曾相遇</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">7</span><span class="freq-song">我不願讓你一個人 + 諾亞方舟</span><span class="freq-days">DAY1~10</span><span class="freq-badge">10 / 12</span></div>
+<div class="freq-row"><span class="freq-num">8</span><span class="freq-song">我心中尚未崩壞的地方</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">9</span><span class="freq-song">最重要的小事 + 香水</span><span class="freq-days">DAY10 제외</span><span class="freq-badge">11 / 12</span></div>
+<div class="freq-row"><span class="freq-num">10</span><span class="freq-song">一千個世紀</span><span class="freq-days">DAY10 제외</span><span class="freq-badge">11 / 12</span></div>
+<div class="freq-row"><span class="freq-num">11</span><span class="freq-song">有些事 + 約翰藍儂</span><span class="freq-days">DAY7·10 제외</span><span class="freq-badge">10 / 12</span></div>
+<div class="freq-row"><span class="freq-num">12</span><span class="freq-song">九號球 + 恆星的恆心 + 時光機</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">13</span><span class="freq-song">相信 + 人生海海</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">14</span><span class="freq-song">愛情萬歲</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">15</span><span class="freq-song">瘋狂世界</span><span class="freq-days">DAY10 제외</span><span class="freq-badge">11 / 12</span></div>
+<div class="freq-section-title">Encore Warm-Up</div>
+<div class="freq-row"><span class="freq-num">16</span><span class="freq-song">派對動物</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">17</span><span class="freq-song">離開地球表面</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">18</span><span class="freq-song">戀愛ing</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-section-title">공연 마무리</div>
+<div class="freq-row"><span class="freq-num">19</span><span class="freq-song">突然好想你</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-section-title">Encore 1안</div>
+<div class="freq-row"><span class="freq-num">20</span><span class="freq-song">最好的一天</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">21</span><span class="freq-song">盛夏光年</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">22</span><span class="freq-song">第一天</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">23</span><span class="freq-song">傷心的人別聽慢歌</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">24</span><span class="freq-song">倔強</span><span class="freq-days">앙코르1안+2안 합산</span><span class="freq-badge">12 / 12</span></div>
+<div class="freq-row"><span class="freq-num">25</span><span class="freq-song">笑忘歌</span><span class="freq-badge">12 / 12</span></div>
+</div>
+</div><!-- end tab-frequent -->
+<div class="page-footer">
+  DAY 1: 35 · DAY 2: 35 · DAY 3: 35 · DAY 4: 35 · DAY 5: 37 · DAY 6: 38 · DAY 7: 36 · DAY 8: 35 · DAY 9: 39 · DAY 10: 37 · DAY 11: 35 · DAY 12: 38곡
+    |   五月天 5525+2 回到那一天 無限延伸版 北京站 완전 아카이브
+</div>
+<script>
+  function switchTab(name) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      if (b.getAttribute('onclick').includes("'" + name + "'")) b.classList.add('active');
+    });
+  }
+
+  // 구버전 td.song 열 제거
+  document.querySelectorAll('td.song, th.left:nth-child(2)').forEach(el => el.remove());
+
+  const TOTAL_DAYS = 12;
+  // track which days are visible — 초기: 아무것도 선택 안 됨
+  const visible = new Set();
+
+  function applyVisibility() {
+    // show/hide header th and td cells
+    document.querySelectorAll('[data-col]').forEach(el => {
+      const col = parseInt(el.getAttribute('data-col'));
+      if (visible.has(col)) {
+        el.classList.remove('col-hidden');
+      } else {
+        el.classList.add('col-hidden');
+      }
+    });
+
+    const noDataRow = document.querySelector('.no-data-row');
+
+    if (visible.size === 0) {
+      // 날짜 미선택 — no-data-row만 보이고 나머지 행 전부 숨김
+      noDataRow.style.display = 'table-row';
+      document.querySelectorAll('tbody tr:not(.no-data-row)').forEach(tr => {
+        tr.style.display = 'none';
+      });
+    } else {
+      // 날짜 선택됨 — no-data-row 숨기고 나머지 보임
+      noDataRow.style.display = 'none';
+      document.querySelectorAll('tbody tr:not(.no-data-row)').forEach(tr => {
+        tr.style.display = 'table-row';
+      });
+      // colspan 업데이트
+      const count = visible.size + 1;
+      document.querySelectorAll('.section-row td, .break-row td').forEach(td => {
+        td.setAttribute('colspan', count < 2 ? 2 : count);
+      });
+    }
+  }
+
+  function toggleDay(btn, day) {
+    if (visible.has(day)) {
+      visible.delete(day);
+      btn.classList.remove('active');
+    } else {
+      visible.add(day);
+      btn.classList.add('active');
+    }
+    applyVisibility();
+  }
+
+  function selectAll() {
+    for (let i = 1; i <= TOTAL_DAYS; i++) visible.add(i);
+    document.querySelectorAll('.filter-btn[data-day]').forEach(b => b.classList.add('active'));
+    applyVisibility();
+  }
+
+  // init
+  applyVisibility();
+</script>
+</body>
+</html>
